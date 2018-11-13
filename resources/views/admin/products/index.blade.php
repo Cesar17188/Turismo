@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Listado de productos')
+@section('title', 'Listado de lugares')
 
 @section('body-class', 'product-page sidebar-collapse')
 
@@ -13,8 +13,9 @@
       <div class="section text-center">
         <h2 class="title">Lista de lugares</h2>
         <div class="team">
+          <a href="{{ url('/admin/products/create') }}" class="btn btn-primary btn-round">Nuevo Lugar</a>
           <div class="row">
-           <table class="table">
+            <table class="table">
                   <thead>
                       <tr>
                           <th class="text-center">#</th>
@@ -31,23 +32,29 @@
                           <td class="text-center">{{ $product->id }}</td>
                           <td>{{ $product->name }}</td>
                           <td>{{ $product->description }}</td>
-                          <td>{{ $product->category->name}} </td>
+                          <td>{{ $product->category ? $product->category->name : 'General'}} </td>
                           <td class="text-right">&euro; {{ $product->price }}</td>
                           <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Ver producto" class="btn btn-info btn-simple btn-xs">
+                               <form method="post" action="{{ url('/admin/products/'.$product->id)}}">
+                                {{ csrf_field() }}
+                                <a type="button" rel="tooltip" title="Ver lugar" class="btn btn-info btn-simple btn-xs">
                                   <i class="fa fa-info"></i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Editar producto" class="btn btn-success btn-simple btn-xs">
+                              </a>
+                              <a href="{{ url('/admin/products/'.$product->id.'/edit')}}" rel="tooltip" title="Editar lugar" class="btn btn-success btn-simple btn-xs">
                                   <i class="fa fa-edit"></i>
-                              </button>                              <button type="button" rel="tooltip" title="Eliminar producto" class="btn btn-danger btn-simple btn-xs">
+                              </a>
+                                {{ method_field('DELETE')}}
+                                <button type="submit" rel="tooltip" title="Eliminar lugar" class="btn btn-danger btn-simple btn-xs">
                                   <i class="fa fa-times"></i>
-                              </button>
+                                </button>
+                              </form>                              
                           </td>
                       </tr>
                       @endforeach
                   </tbody>
               </table>
-            </div>
+              {{ $products->links() }}
+             </div>
         </div>
       </div>
     </div>
