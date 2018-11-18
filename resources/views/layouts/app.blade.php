@@ -52,6 +52,9 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                          @if (auth()->user()->admin)
+                            <a class="dropdown-item" href="{{ url('/admin/products')}}">Gestionar Lugares</a>
+                            @endif
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
@@ -85,6 +88,9 @@
   </nav> 
   <div class="wrapper">
     @yield('content')
+
+    
+    
   </div>
 </body>
 
