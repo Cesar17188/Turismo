@@ -2,7 +2,7 @@
 
 @section('title', 'Turismo | Cuenta')
 
-@section('body-class', 'product-page sidebar-collapse')
+@section('body-class', 'profile-page sidebar-collapse')
 
 
 @section('content')
@@ -14,9 +14,9 @@
       <div class="section">
         <h2 class="title text-center">Cuenta</h2>
 
-        @if (session('status'))
+        @if (session('notification'))
            <div class="alert alert-success" role="alert">
-                  {{ session('status') }}
+                  {{ session('notification') }}
            </div>
         @endif
 
@@ -37,22 +37,59 @@
                 </a>
             </li>
         </ul>
-<div class="tab-content tab-space">
-    <div class="tab-pane active" id="dashboard-1">
-      Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits.
-      <br><br>
-      Dramatically visualize customer directed convergence without revolutionary ROI.
-    </div>
-    <div class="tab-pane" id="schedule-1">
-      Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.
-      <br><br>Dramatically maintain clicks-and-mortar solutions without functional solutions.
-    </div>
-    <div class="tab-pane" id="tasks-1">
-        Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas.
-        <br><br>Dynamically innovate resource-leveling customer service for state of the art customer service.
-    </div>
-</div>
-    
+        <hr>
+        <p>Los lugares que seleccionaste son {{ auth()->user()->cart->details->count() }}</p>
+
+          <table class="table">
+                  <thead>
+                      <tr>
+                          <th class="text-center">#</th>
+                          <th class="text-center">Nombre</th>
+                          <th>Precio</th>
+                          <th>Opciones</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    @foreach(auth()->user()->cart->details as $detail)
+                      <tr>
+                          <td class="text-center">
+                            <img src = "{{ $detail->product->featured_image_url }}" height="50">
+                          </td>
+                          <td class="text-center">
+                            <a href="{{ url ('/products/'.$detail->product->id)}}" target="_blank"> {{ $detail->product->name }}
+                          </td>
+                          <td class="text-right">&#36; {{ $detail->product->price }}</td>
+                          <td class="td-actions">
+                               <form method="post" action="{{ url('/cart')}}">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE')}}
+                                <input type="hidden" name="cart_detail_id" value="{{ $detail->id }}">
+
+                                <a href="{{ url('/products/'.$detail->product->id)}}" target="_blank" rel="tooltip" title="Ver lugar" class="btn btn-info btn-simple btn-xs">
+                                  <i class="fa fa-info"></i>
+                              </a>
+                                          
+
+                                
+                                <button type="submit" rel="tooltip" title="Eliminar" class="btn btn-danger btn-simple btn-xs">
+                                  <i class="fa fa-times"></i>
+                                </button>
+                              </form>                              
+                          </td>
+                      </tr>
+                      @endforeach
+                  </tbody>
+          </table>
+
+          <div class="text-center">
+            <form method="post" action="{{ url('/order')}}">
+                {{ csrf_field() }}
+                
+              <button class="btn btn-primary btn-round">
+                <i class="material-icons">done</i> Realizar pedido
+              </button>
+            </form>
+          </div>
       </div>
 
     </div>

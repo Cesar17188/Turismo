@@ -16,8 +16,12 @@ Route::get('/', 'TestController@welcome');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/products/{id}', 'ProductController@show'); //formulario de edición productos
+Route::post('/cart', 'CartDetailController@store'); //formulario de edición productos
+Route::delete('/cart', 'CartDetailController@destroy'); //formulario de eliminación de lugares
+Route::post('/order', 'CartController@update'); 
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'admin'])->prefix('admin')->namespace('Admin')->group(function () {
    	Route::get('/products', 'ProductController@index'); //listado de productos
    	Route::get('/products/create', 'ProductController@create'); //formulario de nuevos productos
 	Route::post('/products', 'ProductController@store'); //registrar los datos de nuevos productos

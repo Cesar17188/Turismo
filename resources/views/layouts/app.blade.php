@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es"> 
 
 <head>
   <meta charset="utf-8" />
@@ -17,6 +17,8 @@
   <link href="{{ asset('css/material-kit.css')}}" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{{ asset('css/demo/demo.css')}}" rel="stylesheet" />
+
+  @yield('styles')
 </head>
 
 <body class="@yield('body-class')">
@@ -45,16 +47,20 @@
                         <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                     @endif
                 </li>
+
                     @else
+
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                         
                           @if (auth()->user()->admin)
                             <a class="dropdown-item" href="{{ url('/admin/products')}}">Gestionar Lugares</a>
                             @endif
+                            <a class="dropdown-item" href="{{ url('/home') }}">Cuenta </a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
@@ -66,6 +72,8 @@
                                     </form>
                                 </div>
                             </li>
+
+
                     @endguest
           <li class="nav-item">
             <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://twitter.com/CreativeTim" target="_blank" data-original-title="Follow us on Twitter">

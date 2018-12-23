@@ -2,11 +2,11 @@
 
 @section('title', 'Registro de lugares')
 
-@section('body-class', 'product-page sidebar-collapse')
+@section('body-class', 'profile-page sidebar-collapse')
 
 
 @section('content')
-<div class="page-header header-filter" data-parallax="true" style="background-image: url('../img/basilica.jpg')">
+<div class="page-header header-filter" data-parallax="true" style="background-image: url('/img/basilica.jpg')">
 </div>
 <div class="main main-raised">
     <div class="container">
